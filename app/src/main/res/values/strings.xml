@@ -1,3 +1,9 @@
 <resources>
+    <!-- Main Menu -->
     <string name="app_name">MemoryGame</string>
+    <string name="title_m">Memory Match</string>
+    <string name="startBtn">START</string>
+    <string name="scoreBtn">SCORE</string>
+
+
 </resources>
