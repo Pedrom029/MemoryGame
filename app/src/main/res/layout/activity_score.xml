@@ -17,7 +17,7 @@
         android:fontFamily="@font/changa_one"
         android:text="@string/scoreTitle_s"
         android:textColor="@android:color/secondary_text_light"
-        android:textSize="35sp"
+        android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
