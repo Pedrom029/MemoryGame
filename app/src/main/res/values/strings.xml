@@ -6,6 +6,8 @@
     <string name="scoreBtn_m">SCORE</string>
     <string name="aboutBtn_m">ABOUT</string>
     <string name="scoreTitle_s">Scoreboard</string>
+    <string name="longerNick">Username must be longer</string>
+    <string name="insNick">Please insert an username</string>
 
 
 </resources>

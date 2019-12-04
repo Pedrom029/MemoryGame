@@ -45,7 +45,7 @@
         android:layout_marginBottom="150dp"
         android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/changa_one"
-        android:onClick="onClickGame"
+        android:onClick="onClickUsername"
         android:text="@string/startBtn_m"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="30sp"
