@@ -5,25 +5,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 public class GameActivity extends AppCompatActivity {
+
+    private int lineView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        LinearLayout llayout5 = findViewById(R.id.lineView5);
+        LinearLayout llayout4 = findViewById(R.id.lineView4);
+
         if(UsernameActivity.hardness == "easy"){
-
-
+            llayout5.setVisibility(View.GONE);
+            llayout4.setVisibility(View.GONE);
         }
         else if(UsernameActivity.hardness == "medium"){
-
-
+            llayout5.setVisibility(View.GONE);
         }
         else if(UsernameActivity.hardness == "hard"){
-
-
         }
     }
 

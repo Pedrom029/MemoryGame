@@ -47,7 +47,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/changa_one"
-        android:hint="Insert new username"
+        android:hint="Insert player 1 name"
         android:inputType="text"
         android:maxLines="1"
         android:backgroundTint="@color/brainPink"
@@ -57,93 +57,121 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textName1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="213dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:fontFamily="@font/changa_one"
-        android:onClick="userClick"
-        android:text=""
-        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCancel_m" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonCancel_m">
 
-    <TextView
-        android:id="@+id/textName2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/changa_one"
-        android:onClick="userClick"
-        android:text=""
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textName3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/changa_one"
-        android:onClick="userClick"
-        android:text=""
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName2" />
+            <TextView
+                android:id="@+id/textName1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/textName4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/changa_one"
-        android:onClick="userClick"
-        android:text=""
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName3" />
+            <TextView
+                android:id="@+id/textName2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/textName5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/changa_one"
-        android:onClick="userClick"
-        android:text=""
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName4" />
+            <TextView
+                android:id="@+id/textName3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textName4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textName5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textName6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textName7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/changa_one"
+                android:onClick="userClick"
+                android:text=""
+                android:textSize="22sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName5">
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -157,31 +185,34 @@
             android:textSize="22sp" />
 
         <RadioButton
-            android:id="@+id/radioBEasy"
+            android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/brainPink"
+            android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="Car Brands"
-            android:buttonTint="@color/brainPink"
-            android:buttonTintMode="src_in"/>
+            android:textSize="18sp" />
 
         <RadioButton
-            android:id="@+id/radioBMedium"
+            android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/brainPink"
+            android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="Social Networks"
-            android:buttonTint="@color/brainPink"
-            android:buttonTintMode="src_in"/>
+            android:textSize="18sp" />
 
         <RadioButton
-            android:id="@+id/radioBHard"
+            android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/brainPink"
+            android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="Electronic Symbols"
-            android:buttonTint="@color/brainPink"
-            android:buttonTintMode="src_in"/>
+            android:textSize="18sp" />
 
     </RadioGroup>
 

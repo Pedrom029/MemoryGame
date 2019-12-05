@@ -46,6 +46,14 @@ public class UsernameActivity extends AppCompatActivity {
                 TextView name5 = findViewById(R.id.textName5);
                 name5.setText(name);
             }
+            else if (i == 6) {
+                TextView name6 = findViewById(R.id.textName6);
+                name6.setText(name);
+            }
+            else if (i == 7) {
+                TextView name7 = findViewById(R.id.textName7);
+                name7.setText(name);
+            }
         }
     }
 
@@ -90,12 +98,12 @@ public class UsernameActivity extends AppCompatActivity {
                     }
                 });
 
-        if (MainActivity.m_userName.length()>3){
+        if (MainActivity.m_userName.length()>=3){
             dBuilder.create();
             dBuilder.show();
 
         }
-        else if(MainActivity.m_userName.length()<3 && MainActivity.m_userName.length()>0){
+        else if(MainActivity.m_userName.length()>0){
             Toast.makeText(getApplicationContext(),R.string.longerNick, Toast.LENGTH_LONG).show();
         }
         else{
