@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 public class GameActivity extends AppCompatActivity {
 
-    private int lineView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +19,15 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout llayout5 = findViewById(R.id.lineView5);
         LinearLayout llayout4 = findViewById(R.id.lineView4);
 
-        if(UsernameActivity.hardness == "easy"){
+        if(UsernameActivity.hardness.equals("easy")){
             llayout5.setVisibility(View.GONE);
             llayout4.setVisibility(View.GONE);
         }
-        else if(UsernameActivity.hardness == "medium"){
+        else if(UsernameActivity.hardness.equals("medium")){
             llayout5.setVisibility(View.GONE);
         }
-        else if(UsernameActivity.hardness == "hard"){
+        else if(UsernameActivity.hardness.equals("hard")){
+
         }
     }
 

@@ -99,9 +99,7 @@ public class UsernameActivity extends AppCompatActivity {
                 });
 
         if (MainActivity.m_userName.length()>=3){
-            dBuilder.create();
-            dBuilder.show();
-
+            dBuilder.create().show();
         }
         else if(MainActivity.m_userName.length()>0){
             Toast.makeText(getApplicationContext(),R.string.longerNick, Toast.LENGTH_LONG).show();
