@@ -1,8 +1,10 @@
 package com.example.memorygame;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UsernameActivity extends AppCompatActivity {
+
+    static String hardness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +53,47 @@ public class UsernameActivity extends AppCompatActivity {
         finish();
     }
 
+    public void startGameActivity(){
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
     public void onClickGame(View view) {
         AutoCompleteTextView source = findViewById(R.id.userName);
         MainActivity.m_userName = source.getText().toString();
+        String[] HARDNESS = {"Can I play daddy?", "Bring 'em on!", "Nightmare"};
+
+        AlertDialog.Builder dBuilder = new AlertDialog.Builder(UsernameActivity.this);
+        dBuilder.setTitle("Choose Difficulty:")
+                .setItems(HARDNESS, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(which){
+                            case 0:
+                                hardness = "easy";
+                                startGameActivity();
+                                UsernameActivity.this.finish();
+                                break;
+                            case 1:
+                                hardness = "medium";
+                                startGameActivity();
+                                UsernameActivity.this.finish();
+                                break;
+                            case 2:
+                                hardness = "hard";
+                                startGameActivity();
+                                UsernameActivity.this.finish();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
 
         if (MainActivity.m_userName.length()>3){
+            dBuilder.create();
+            dBuilder.show();
 
-            Intent intent = new Intent(this, GameActivity.class);
-            startActivity(intent);
-            finish();
         }
         else if(MainActivity.m_userName.length()<3 && MainActivity.m_userName.length()>0){
             Toast.makeText(getApplicationContext(),R.string.longerNick, Toast.LENGTH_LONG).show();
