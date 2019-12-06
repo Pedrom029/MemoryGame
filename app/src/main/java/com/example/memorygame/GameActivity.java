@@ -43,7 +43,6 @@ public class GameActivity extends AppCompatActivity {
                         GameActivity.this.finish();
                     }
                 }).create().show();
-
     }
 
 }

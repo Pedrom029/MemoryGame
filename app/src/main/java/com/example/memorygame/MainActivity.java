@@ -11,7 +11,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String m_userName;
+    public static String m_userName1;
+    public static String m_userName2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

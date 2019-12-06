@@ -6,8 +6,11 @@
     <string name="scoreBtn_m">SCORE</string>
     <string name="aboutBtn_m">ABOUT</string>
     <string name="scoreTitle_s">Scoreboard</string>
-    <string name="longerNick">Username must be longer</string>
-    <string name="insNick">Please insert an username</string>
+    <string name="longerNick_u">Username must be longer</string>
+    <string name="insNick_u">Please insert an username</string>
+    <string name="onPlayerOne_u">Please insert name on Player 1 for singleplayer!</string>
+    <string name="singlePM_u">Singleplayer mode</string>
+    <string name="multiPM_u">Multiplayer mode</string>
 
 
 </resources>

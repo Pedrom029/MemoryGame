@@ -21,7 +21,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintTop_toBottomOf="@+id/userName2" />
 
     <Button
         android:id="@+id/buttonCancel_m"
@@ -37,7 +37,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonOK_m"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintTop_toBottomOf="@+id/userName2" />
 
     <AutoCompleteTextView
         android:id="@+id/userName"
@@ -56,6 +56,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/userName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/brainPink"
+        android:fontFamily="@font/changa_one"
+        android:hint="Insert player 2 name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textCursorDrawable="@null"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -192,6 +210,7 @@
             android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="Car Brands"
+            android:tag="cars"
             android:textSize="18sp" />
 
         <RadioButton
@@ -202,6 +221,7 @@
             android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="Social Networks"
+            android:tag="networks"
             android:textSize="18sp" />
 
         <RadioButton
@@ -212,6 +232,7 @@
             android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="Electronic Symbols"
+            android:tag="electronics"
             android:textSize="18sp" />
 
     </RadioGroup>

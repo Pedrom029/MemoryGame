@@ -10,27 +10,36 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class UsernameActivity extends AppCompatActivity {
 
     static String hardness;
+    static boolean singlePlayer;
+    RadioButton radioBtn1;
+    RadioButton radioBtn2;
+    RadioButton radioBtn3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_username);
         SharedPreferences names = getSharedPreferences("names", Context.MODE_PRIVATE);
-        String name = "";
+        radioBtn1 = findViewById(R.id.radioButton1);
+        radioBtn2 = findViewById(R.id.radioButton2);
+        radioBtn3 = findViewById(R.id.radioButton3);
+        radioBtn1.setChecked(true);
+        String name;
 
-        for (int i=1 ; i < 11 ; i++) {
+        for (int i = 1 ; i < 11 ; i++) {
             name = names.getString(String.valueOf(i), null);
-            if (i==1){
+            if (i == 1){
                 TextView name1 = findViewById(R.id.textName1);
                 name1.setText(name);
             }
-            if (i==2){
+            if (i == 2){
                 TextView name2 = findViewById(R.id.textName2);
                 name2.setText(name);
             }
@@ -59,6 +68,7 @@ public class UsernameActivity extends AppCompatActivity {
 
     public void mainWindow(View view) {
         finish();
+
     }
 
     public void startGameActivity(){
@@ -67,8 +77,11 @@ public class UsernameActivity extends AppCompatActivity {
     }
 
     public void onClickGame(View view) {
-        AutoCompleteTextView source = findViewById(R.id.userName);
-        MainActivity.m_userName = source.getText().toString();
+        AutoCompleteTextView player1 = findViewById(R.id.userName);
+        AutoCompleteTextView player2 = findViewById(R.id.userName2);
+        MainActivity.m_userName1 = player1.getText().toString();
+        MainActivity.m_userName2 = player2.getText().toString();
+
         String[] HARDNESS = {"Can I play daddy?", "Bring 'em on!", "Nightmare"};
 
         AlertDialog.Builder dBuilder = new AlertDialog.Builder(UsernameActivity.this);
@@ -98,19 +111,29 @@ public class UsernameActivity extends AppCompatActivity {
                     }
                 });
 
-        if (MainActivity.m_userName.length()>=3){
+        if (MainActivity.m_userName1.length()>=2 && MainActivity.m_userName2.isEmpty()){
+            singlePlayer = true;
+            Toast.makeText(getApplicationContext(), R.string.singlePM_u, Toast.LENGTH_LONG).show();
             dBuilder.create().show();
         }
-        else if(MainActivity.m_userName.length()>0){
-            Toast.makeText(getApplicationContext(),R.string.longerNick, Toast.LENGTH_LONG).show();
+        else if(MainActivity.m_userName1.length()>=2 && MainActivity.m_userName2.length()>=2){
+            singlePlayer = false;
+            Toast.makeText(getApplicationContext(), R.string.multiPM_u, Toast.LENGTH_LONG).show();
+            dBuilder.create().show();
+        }
+        else if(MainActivity.m_userName1.isEmpty() && MainActivity.m_userName2.length()>=2){
+            Toast.makeText(getApplicationContext(), R.string.onPlayerOne_u, Toast.LENGTH_LONG).show();
+        }
+        else if(MainActivity.m_userName1.length()>0 || MainActivity.m_userName2.length()>0){
+            Toast.makeText(getApplicationContext(), R.string.longerNick_u, Toast.LENGTH_LONG).show();
         }
         else{
-            Toast.makeText(getApplicationContext(),R.string.insNick, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.insNick_u, Toast.LENGTH_LONG).show();
         }
     }
 
     public void userClick(View view) {
-        String nome = "";
+        String nome;
         AutoCompleteTextView _userName = findViewById(R.id.userName);
 
         TextView t = (TextView) view;
