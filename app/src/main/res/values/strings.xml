@@ -1,16 +1,28 @@
 <resources>
-    <!-- Main Menu -->
+    <!-- Main Activity -->
     <string name="app_name">MemoryGame</string>
     <string name="title_m">Memory Match</string>
     <string name="startBtn_m">START</string>
     <string name="scoreBtn_m">SCORE</string>
     <string name="aboutBtn_m">ABOUT</string>
+
+    <!-- Score Activity -->
     <string name="scoreTitle_s">Scoreboard</string>
+
+    <!-- Username Activity -->
     <string name="longerNick_u">Username must be longer</string>
     <string name="insNick_u">Please insert an username</string>
     <string name="onPlayerOne_u">Please insert name on Player 1 for singleplayer!</string>
     <string name="singlePM_u">Singleplayer mode</string>
     <string name="multiPM_u">Multiplayer mode</string>
+    <string name="okBtn_u">OK</string>
+    <string name="cancelBtn_u">Cancel</string>
+    <string name="player1Hint_u">Insert player 1 name</string>
+    <string name="player2Hint_u">Insert player 2 name</string>
+    <string name="game_theme_u">Game Theme</string>
+    <string name="radioBtn1_u">Car Brands</string>
+    <string name="radioBtn2_u">Social Networks</string>
+    <string name="radioBtn3_u">Electronic Symbols</string>
 
 
 </resources>
