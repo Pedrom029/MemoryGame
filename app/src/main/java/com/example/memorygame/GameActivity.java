@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class GameActivity extends AppCompatActivity {
     int Pares=0;
     int carta1=100;
     int carta2=100;
+    List<Integer> Cards_Paired = new ArrayList<Integer>();
     ImageView CartaAnterior = null;
     ImageView img_1;
     ImageView img_2;
@@ -41,7 +43,45 @@ public class GameActivity extends AppCompatActivity {
     ImageView img_18;
     ImageView img_19;
     ImageView img_20;
+    int Carta;
+    ImageView Imagem;
+    public void Compara_cartas(final int Carta, final ImageView Imagem) {
+        if (!Cards_Paired.contains(Carta)) {
+            if (carta1 == 100) {
+                carta1 = Carta;
+                CartaAnterior = Imagem;
+                Imagem.setImageResource(cars[Carta]);
+            } else {
+                if ((carta1 == Carta) && (CartaAnterior != Imagem)) {
+                    Imagem.setImageResource(cars[Carta]);
+                    Cards_Paired.add(Carta);
+                    Imagem.setEnabled(false);
+                    CartaAnterior.setEnabled(false);
+                } else {
+                    new CountDownTimer(500, 100) { // 5000 = 5 sec
 
+                        public void onTick(long millisUntilFinished) {
+                            Imagem.setImageResource(cars[Carta]);
+                        }
+
+                        public void onFinish() {
+                            if(!Cards_Paired.contains(Carta)) {
+                                Imagem.setImageResource(R.drawable.carta_back);
+                            }
+                            if(!Cards_Paired.contains(carta1)) {
+                                CartaAnterior.setImageResource(R.drawable.carta_back);
+                            }
+                        }
+                    }.start();
+
+
+                    carta1 = 100;
+
+                }
+            }
+
+        }
+    }
 
     final int[] cars={R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda, R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota};
     public void onClick(View view){
@@ -67,381 +107,64 @@ public class GameActivity extends AppCompatActivity {
         img_20=findViewById(R.id.cardView20);
         switch (view.getId()){
             case R.id.cardView1:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[0];
-                    CartaAnterior=img_1;
-                    img_1.setImageResource(cars[Posicoes_rand[0]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[0])&&(CartaAnterior!=img_1)){
-                        img_1.setImageResource(cars[Posicoes_rand[0]]);
-                        carta1=100;
-                        img_1.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_1.setImageResource(cars[Posicoes_rand[0]]);
-                            }
-
-                            public void onFinish() {
-                                img_1.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[0];
+                Imagem=img_1;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView2:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[1];
-                    CartaAnterior=img_2;
-                    img_2.setImageResource(cars[Posicoes_rand[1]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[1])&&(CartaAnterior!=img_2)){
-                        img_2.setImageResource(cars[Posicoes_rand[1]]);
-                        carta1=100;
-                        img_2.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_2.setImageResource(cars[Posicoes_rand[1]]);
-                            }
-
-                            public void onFinish() {
-                                img_2.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
-
+                Carta=Posicoes_rand[1];
+                Imagem=img_2;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView3:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[2];
-                    CartaAnterior=img_3;
-                    img_3.setImageResource(cars[Posicoes_rand[2]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[2])&&(CartaAnterior!=img_3)){
-                        img_3.setImageResource(cars[Posicoes_rand[2]]);
-                        carta1=100;
-                        img_3.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_3.setImageResource(cars[Posicoes_rand[2]]);
-                            }
-
-                            public void onFinish() {
-                                img_3.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[2];
+                Imagem=img_3;
+                Compara_cartas(Carta, Imagem);
                 break;
-
             case R.id.cardView4:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[3];
-                    CartaAnterior=img_4;
-                    img_4.setImageResource(cars[Posicoes_rand[3]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[3])&&(CartaAnterior!=img_4)){
-                        img_4.setImageResource(cars[Posicoes_rand[3]]);
-                        carta1=100;
-                        img_4.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_4.setImageResource(cars[Posicoes_rand[3]]);
-                            }
-
-                            public void onFinish() {
-                                img_4.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[3];
+                Imagem=img_4;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView5:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[4];
-                    CartaAnterior=img_5;
-                    img_5.setImageResource(cars[Posicoes_rand[4]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[4])&&(CartaAnterior!=img_5)){
-                        img_5.setImageResource(cars[Posicoes_rand[4]]);
-                        carta1=100;
-                        img_5.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_5.setImageResource(cars[Posicoes_rand[4]]);
-                            }
-
-                            public void onFinish() {
-                                img_5.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[4];
+                Imagem=img_5;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView6:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[5];
-                    CartaAnterior=img_6;
-                    img_6.setImageResource(cars[Posicoes_rand[5]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[5])&&(CartaAnterior!=img_6)){
-                        img_6.setImageResource(cars[Posicoes_rand[5]]);
-                        carta1=100;
-                        img_6.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(300, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_6.setImageResource(cars[Posicoes_rand[5]]);
-                            }
-
-                            public void onFinish() {
-                                img_6.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-
-                            }
-                        }.start();
-
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[5];
+                Imagem=img_6;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView7:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[6];
-                    CartaAnterior=img_7;
-                    img_7.setImageResource(cars[Posicoes_rand[6]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[6])&&(CartaAnterior!=img_7)){
-                        img_7.setImageResource(cars[Posicoes_rand[6]]);
-                        carta1=100;
-                        img_7.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_7.setImageResource(cars[Posicoes_rand[6]]);
-                            }
-
-                            public void onFinish() {
-                                img_7.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[6];
+                Imagem=img_7;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView8:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[7];
-                    CartaAnterior=img_8;
-                    img_8.setImageResource(cars[Posicoes_rand[7]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[7])&&(CartaAnterior!=img_8)){
-                        img_8.setImageResource(cars[Posicoes_rand[7]]);
-                        carta1=100;
-                        img_8.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_8.setImageResource(cars[Posicoes_rand[7]]);
-                            }
-
-                            public void onFinish() {
-                                img_8.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[7];
+                Imagem=img_8;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView9:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[8];
-                    CartaAnterior=img_9;
-                    img_9.setImageResource(cars[Posicoes_rand[8]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[8])&&(CartaAnterior!=img_9)){
-                        img_9.setImageResource(cars[Posicoes_rand[8]]);
-                        carta1=100;
-                        img_9.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_9.setImageResource(cars[Posicoes_rand[8]]);
-                            }
-
-                            public void onFinish() {
-                                img_9.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[8];
+                Imagem=img_9;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView10:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[9];
-                    CartaAnterior=img_10;
-                    img_10.setImageResource(cars[Posicoes_rand[9]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[9])&&(CartaAnterior!=img_10)){
-                        img_10.setImageResource(cars[Posicoes_rand[9]]);
-                        carta1=100;
-                        img_10.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_10.setImageResource(cars[Posicoes_rand[9]]);
-                            }
-
-                            public void onFinish() {
-                                img_10.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[9];
+                Imagem=img_10;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView11:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[10];
-                    CartaAnterior=img_11;
-                    img_11.setImageResource(cars[Posicoes_rand[10]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[10])&&(CartaAnterior!=img_11)){
-                        img_11.setImageResource(cars[Posicoes_rand[10]]);
-                        carta1=100;
-                        img_11.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_11.setImageResource(cars[Posicoes_rand[10]]);
-                            }
-
-                            public void onFinish() {
-                                img_11.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[10];
+                Imagem=img_11;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView12:
-                if(carta1==100) {
-                    carta1=Posicoes_rand[11];
-                    CartaAnterior=img_12;
-                    img_12.setImageResource(cars[Posicoes_rand[11]]);
-                }
-                else{
-                    if((carta1 == Posicoes_rand[11])&&(CartaAnterior!=img_12)){
-                        img_12.setImageResource(cars[Posicoes_rand[11]]);
-                        carta1=100;
-                        img_12.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                    }
-                    else{
-                        new CountDownTimer(500, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                img_12.setImageResource(cars[Posicoes_rand[11]]);
-                            }
-
-                            public void onFinish() {
-                                img_12.setImageResource(R.drawable.carta_back);
-                                CartaAnterior.setImageResource(R.drawable.carta_back);
-                            }
-                        }.start();
-
-                        carta1=100;
-
-                    }
-                }
+                Carta=Posicoes_rand[11];
+                Imagem=img_12;
+                Compara_cartas(Carta, Imagem);
                 break;
             case R.id.cardView13:
                 img_13.setImageResource(cars[Posicoes_rand[12]]);
