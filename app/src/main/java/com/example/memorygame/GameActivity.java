@@ -45,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
     ImageView img_18;
     ImageView img_19;
     ImageView img_20;
+    CountDownTimer cTimer = null; //Declare timer
     int Carta;
     ImageView Imagem;
     public void Compara_cartas(final int Carta, final ImageView Imagem) {
@@ -65,7 +66,6 @@ public class GameActivity extends AppCompatActivity {
                         public void onTick(long millisUntilFinished) {
                             Imagem.setImageResource(cars[Carta]);
                         }
-    CountDownTimer cTimer = null; //Declare timer
 
                         public void onFinish() {
                             if(!Cards_Paired.contains(Carta)) {
