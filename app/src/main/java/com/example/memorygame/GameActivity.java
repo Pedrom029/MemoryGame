@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     ImageView img_18;
     ImageView img_19;
     ImageView img_20;
+    CountDownTimer cTimer = null; //Declare timer
 
 
     final int[] cars={R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda, R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota};
@@ -519,6 +522,8 @@ public class GameActivity extends AppCompatActivity {
             Posicoes_rand=RandomizeArray(Posicoes);
 
         }
+
+       startTimer(); //Start timer
     }
 
     @Override
@@ -535,4 +540,32 @@ public class GameActivity extends AppCompatActivity {
                 }).create().show();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (cTimer != null)
+            cTimer.cancel();
+    }
+
+    //start timer function
+    void startTimer() {
+        cTimer = new CountDownTimer(5000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                TextView timer = findViewById(R.id.textTimer);
+                timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
+            }
+            public void onFinish() {
+                new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
+                        .setTitle("Time over!")
+                        .setMessage("Better luck next time!")
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                GameActivity.this.finish();
+                            }
+                        }).create().show();
+            }
+        };
+        cTimer.start();
+    }
 }
