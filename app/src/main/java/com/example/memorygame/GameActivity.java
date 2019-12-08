@@ -549,7 +549,7 @@ public class GameActivity extends AppCompatActivity {
 
     //start timer function
     void startTimer() {
-        cTimer = new CountDownTimer(5000, 1000) {
+        cTimer = new CountDownTimer(60000, 1000) {
             public void onTick(long millisUntilFinished) {
                 TextView timer = findViewById(R.id.textTimer);
                 timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
