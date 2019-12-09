@@ -18,55 +18,55 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
     String choosenTheme = UsernameActivity.theme;
     boolean isSinglePlayer = UsernameActivity.singlePlayer;
-    int[] Posicoes_rand;
-    int Pares=0;
-    int carta1=100;
-    int Pares_Necessarios=10;
-    List<Integer> Cards_Paired = new ArrayList<>();
-    ImageView CartaAnterior = null;
-    int espera=0;
+    int[] randomPos;
+    int pairs =0;
+    int card1 =100;
+    int pairsNeeded =10;
+    List<Integer> cardsPaired = new ArrayList<>();
+    ImageView lastCard = null;
+    int wait =0;
     CountDownTimer cTimer = null; //Declare timer
-    int Carta;
-    ImageView Imagem;
+    int card;
+    ImageView image;
 
-    public void inicializa_jogo(int[] Posicoes){
-        Posicoes_rand=RandomizeArray(Posicoes);
+    public void inicializeGame(int[] positions){
+        randomPos = randomizeArray(positions);
         //Os id de todas as image views
         final int[] imagens={R.id.cardView1,R.id.cardView2,R.id.cardView3,R.id.cardView4,R.id.cardView5,R.id.cardView6,R.id.cardView7,R.id.cardView8,R.id.cardView9,R.id.cardView10,R.id.cardView11,R.id.cardView12,R.id.cardView13,R.id.cardView14,R.id.cardView15,R.id.cardView16,R.id.cardView17,R.id.cardView18,R.id.cardView19,R.id.cardView20};
         new CountDownTimer(1000, 100) { // 5000 = 5 sec
 
             public void onTick(long millisUntilFinished) {
-                for(int i = 0; i<Posicoes_rand.length; i++) {
-                    Imagem=findViewById(imagens[i]);
-                    Imagem.setImageResource(cars[Posicoes_rand[i]]);
+                for(int i = 0; i< randomPos.length; i++) {
+                    image =findViewById(imagens[i]);
+                    image.setImageResource(cars[randomPos[i]]);
                 }
             }
 
             public void onFinish() {
-                for(int i = 0; i<Posicoes_rand.length; i++) {
-                    Imagem=findViewById(imagens[i]);
-                    Imagem.setImageResource(R.drawable.carta_back);
+                for(int i = 0; i< randomPos.length; i++) {
+                    image =findViewById(imagens[i]);
+                    image.setImageResource(R.drawable.carta_back);
                 }
             }
         }.start();
 
     }
 
-    public void Compara_cartas(final int Carta, final ImageView Imagem) {
-        if(espera==0) {
-            if (!Cards_Paired.contains(Carta)) {
-                if (carta1 == 100) {
-                    carta1 = Carta;
-                    CartaAnterior = Imagem;
-                    Imagem.setImageResource(cars[Carta]);
+    public void compareCards(final int card, final ImageView image) {
+        if(wait ==0) {
+            if (!cardsPaired.contains(card)) {
+                if (card1 == 100) {
+                    card1 = card;
+                    lastCard = image;
+                    image.setImageResource(cars[card]);
                 } else {
-                    if ((carta1 == Carta) && (CartaAnterior != Imagem)) {
-                        Imagem.setImageResource(cars[Carta]);
-                        Cards_Paired.add(Carta);
-                        Imagem.setEnabled(false);
-                        CartaAnterior.setEnabled(false);
-                        Pares=Pares+1;
-                        if (Pares_Necessarios==Pares){
+                    if ((card1 == card) && (lastCard != image)) {
+                        image.setImageResource(cars[card]);
+                        cardsPaired.add(card);
+                        image.setEnabled(false);
+                        lastCard.setEnabled(false);
+                        pairs = pairs +1;
+                        if (pairsNeeded == pairs){
                             new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
                                     .setTitle("Congratulations!! :D")
                                     .setMessage("You have completed the game!!")
@@ -81,23 +81,23 @@ public class GameActivity extends AppCompatActivity {
                         new CountDownTimer(300, 100) { // 5000 = 5 sec
 
                             public void onTick(long millisUntilFinished) {
-                                Imagem.setImageResource(cars[Carta]);
-                                espera = 1;
+                                image.setImageResource(cars[card]);
+                                wait = 1;
                             }
 
                             public void onFinish() {
-                                if (!Cards_Paired.contains(Carta)) {
-                                    Imagem.setImageResource(R.drawable.carta_back);
+                                if (!cardsPaired.contains(card)) {
+                                    image.setImageResource(R.drawable.carta_back);
                                 }
-                                if (!Cards_Paired.contains(carta1)) {
-                                    CartaAnterior.setImageResource(R.drawable.carta_back);
+                                if (!cardsPaired.contains(card1)) {
+                                    lastCard.setImageResource(R.drawable.carta_back);
                                 }
-                                espera = 0;
+                                wait = 0;
                             }
                         }.start();
 
                     }
-                    carta1 = 100;
+                    card1 = 100;
                 }
 
             }
@@ -108,110 +108,110 @@ public class GameActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.cardView1:
-                Carta=Posicoes_rand[0];
-                Imagem=findViewById(R.id.cardView1);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[0];
+                image =findViewById(R.id.cardView1);
+                compareCards(card, image);
                 break;
             case R.id.cardView2:
-                Carta=Posicoes_rand[1];
-                Imagem=findViewById(R.id.cardView2);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[1];
+                image =findViewById(R.id.cardView2);
+                compareCards(card, image);
                 break;
             case R.id.cardView3:
-                Carta=Posicoes_rand[2];
-                Imagem=findViewById(R.id.cardView3);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[2];
+                image =findViewById(R.id.cardView3);
+                compareCards(card, image);
                 break;
             case R.id.cardView4:
-                Carta=Posicoes_rand[3];
-                Imagem=findViewById(R.id.cardView4);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[3];
+                image =findViewById(R.id.cardView4);
+                compareCards(card, image);
                 break;
             case R.id.cardView5:
-                Carta=Posicoes_rand[4];
-                Imagem=findViewById(R.id.cardView5);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[4];
+                image =findViewById(R.id.cardView5);
+                compareCards(card, image);
                 break;
             case R.id.cardView6:
-                Carta=Posicoes_rand[5];
-                Imagem=findViewById(R.id.cardView6);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[5];
+                image =findViewById(R.id.cardView6);
+                compareCards(card, image);
                 break;
             case R.id.cardView7:
-                Carta=Posicoes_rand[6];
-                Imagem=findViewById(R.id.cardView7);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[6];
+                image =findViewById(R.id.cardView7);
+                compareCards(card, image);
                 break;
             case R.id.cardView8:
-                Carta=Posicoes_rand[7];
-                Imagem=findViewById(R.id.cardView8);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[7];
+                image =findViewById(R.id.cardView8);
+                compareCards(card, image);
                 break;
             case R.id.cardView9:
-                Carta=Posicoes_rand[8];
-                Imagem=findViewById(R.id.cardView9);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[8];
+                image =findViewById(R.id.cardView9);
+                compareCards(card, image);
                 break;
             case R.id.cardView10:
-                Carta=Posicoes_rand[9];
-                Imagem=findViewById(R.id.cardView10);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[9];
+                image =findViewById(R.id.cardView10);
+                compareCards(card, image);
                 break;
             case R.id.cardView11:
-                Carta=Posicoes_rand[10];
-                Imagem=findViewById(R.id.cardView11);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[10];
+                image =findViewById(R.id.cardView11);
+                compareCards(card, image);
                 break;
             case R.id.cardView12:
-                Carta=Posicoes_rand[11];
-                Imagem=findViewById(R.id.cardView12);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[11];
+                image =findViewById(R.id.cardView12);
+                compareCards(card, image);
                 break;
             case R.id.cardView13:
-                Carta=Posicoes_rand[12];
-                Imagem=findViewById(R.id.cardView13);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[12];
+                image =findViewById(R.id.cardView13);
+                compareCards(card, image);
                 break;
             case R.id.cardView14:
-                Carta=Posicoes_rand[13];
-                Imagem=findViewById(R.id.cardView14);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[13];
+                image =findViewById(R.id.cardView14);
+                compareCards(card, image);
                 break;
             case R.id.cardView15:
-                Carta=Posicoes_rand[14];
-                Imagem=findViewById(R.id.cardView15);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[14];
+                image =findViewById(R.id.cardView15);
+                compareCards(card, image);
                 break;
             case R.id.cardView16:
-                Carta=Posicoes_rand[15];
-                Imagem=findViewById(R.id.cardView16);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[15];
+                image =findViewById(R.id.cardView16);
+                compareCards(card, image);
                 break;
             case R.id.cardView17:
-                Carta=Posicoes_rand[16];
-                Imagem=findViewById(R.id.cardView17);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[16];
+                image =findViewById(R.id.cardView17);
+                compareCards(card, image);
                 break;
             case R.id.cardView18:
-                Carta=Posicoes_rand[17];
-                Imagem=findViewById(R.id.cardView18);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[17];
+                image =findViewById(R.id.cardView18);
+                compareCards(card, image);
                 break;
             case R.id.cardView19:
-                Carta=Posicoes_rand[18];
-                Imagem=findViewById(R.id.cardView19);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[18];
+                image =findViewById(R.id.cardView19);
+                compareCards(card, image);
                 break;
             case R.id.cardView20:
-                Carta=Posicoes_rand[19];
-                Imagem=findViewById(R.id.cardView20);
-                Compara_cartas(Carta, Imagem);
+                card = randomPos[19];
+                image =findViewById(R.id.cardView20);
+                compareCards(card, image);
                 break;
 
         }
     }
 
-    public static int[] RandomizeArray(int[] array){
+    public static int[] randomizeArray(int[] array){
         Random rgen = new Random();  // Random number generator
 
         for (int i=0; i<array.length; i++) {
@@ -240,20 +240,20 @@ public class GameActivity extends AppCompatActivity {
         if(UsernameActivity.hardness.equals("easy")){
             llayout5.setVisibility(View.GONE);
             llayout4.setVisibility(View.GONE);
-            int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
-            Pares_Necessarios=6;
-            inicializa_jogo(Posicoes);
+            int [] positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
+            pairsNeeded =6;
+            inicializeGame(positions);
         }
         else if(UsernameActivity.hardness.equals("medium")){
             llayout5.setVisibility(View.GONE);
-            int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
-            Pares_Necessarios=8;
-            inicializa_jogo(Posicoes);
+            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
+            pairsNeeded =8;
+            inicializeGame(positions);
         }
         else if(UsernameActivity.hardness.equals("hard")){
-            int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
-            Pares_Necessarios=10;
-            inicializa_jogo(Posicoes);
+            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
+            pairsNeeded =10;
+            inicializeGame(positions);
         }
 
        startTimer(); //Start timer

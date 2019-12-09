@@ -83,7 +83,7 @@ public class UsernameActivity extends AppCompatActivity {
         MainActivity.m_userName1 = player1.getText().toString();
         MainActivity.m_userName2 = player2.getText().toString();
 
-        String[] HARDNESS = {"Can I play daddy?", "Bring 'em on!", "Nightmare"};
+        String[] HARDNESS = {"Easy PZ(3X4)", "Normal-ish (4X4)", "Hardcore (5x4)"};
 
         AlertDialog.Builder dBuilder = new AlertDialog.Builder(UsernameActivity.this);
         dBuilder.setTitle("Choose Difficulty:")
