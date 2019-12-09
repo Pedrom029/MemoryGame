@@ -7,14 +7,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -25,12 +22,36 @@ public class GameActivity extends AppCompatActivity {
     int Pares=0;
     int carta1=100;
     int Pares_Necessarios=10;
-    List<Integer> Cards_Paired = new ArrayList<Integer>();
+    List<Integer> Cards_Paired = new ArrayList<>();
     ImageView CartaAnterior = null;
     int espera=0;
     CountDownTimer cTimer = null; //Declare timer
     int Carta;
     ImageView Imagem;
+
+    public void inicializa_jogo(int[] Posicoes){
+        Posicoes_rand=RandomizeArray(Posicoes);
+        //Os id de todas as image views
+        final int[] imagens={R.id.cardView1,R.id.cardView2,R.id.cardView3,R.id.cardView4,R.id.cardView5,R.id.cardView6,R.id.cardView7,R.id.cardView8,R.id.cardView9,R.id.cardView10,R.id.cardView11,R.id.cardView12,R.id.cardView13,R.id.cardView14,R.id.cardView15,R.id.cardView16,R.id.cardView17,R.id.cardView18,R.id.cardView19,R.id.cardView20};
+        new CountDownTimer(1000, 100) { // 5000 = 5 sec
+
+            public void onTick(long millisUntilFinished) {
+                for(int i = 0; i<Posicoes_rand.length; i++) {
+                    Imagem=findViewById(imagens[i]);
+                    Imagem.setImageResource(cars[Posicoes_rand[i]]);
+                }
+            }
+
+            public void onFinish() {
+                for(int i = 0; i<Posicoes_rand.length; i++) {
+                    Imagem=findViewById(imagens[i]);
+                    Imagem.setImageResource(R.drawable.carta_back);
+                }
+            }
+        }.start();
+
+    }
+
     public void Compara_cartas(final int Carta, final ImageView Imagem) {
         if(espera==0) {
             if (!Cards_Paired.contains(Carta)) {
@@ -221,22 +242,18 @@ public class GameActivity extends AppCompatActivity {
             llayout4.setVisibility(View.GONE);
             int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
             Pares_Necessarios=6;
-            Posicoes_rand=RandomizeArray(Posicoes);
-
-
-
+            inicializa_jogo(Posicoes);
         }
         else if(UsernameActivity.hardness.equals("medium")){
             llayout5.setVisibility(View.GONE);
             int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
             Pares_Necessarios=8;
-            Posicoes_rand=RandomizeArray(Posicoes);
+            inicializa_jogo(Posicoes);
         }
         else if(UsernameActivity.hardness.equals("hard")){
             int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
             Pares_Necessarios=10;
-            Posicoes_rand=RandomizeArray(Posicoes);
-
+            inicializa_jogo(Posicoes);
         }
 
        startTimer(); //Start timer
