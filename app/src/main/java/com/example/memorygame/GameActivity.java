@@ -22,7 +22,7 @@ public class GameActivity extends AppCompatActivity {
     int[] Posicoes_rand;
     int Pares=0;
     int carta1=100;
-    int carta2=100;
+    int Pares_Necessarios=10;
     List<Integer> Cards_Paired = new ArrayList<Integer>();
     ImageView CartaAnterior = null;
     int espera=0;
@@ -42,6 +42,18 @@ public class GameActivity extends AppCompatActivity {
                         Cards_Paired.add(Carta);
                         Imagem.setEnabled(false);
                         CartaAnterior.setEnabled(false);
+                        Pares=Pares+1;
+                        if (Pares_Necessarios==Pares){
+                            new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
+                                    .setTitle("Congratulations!! :D")
+                                    .setMessage("You have completed the game!!")
+                                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            GameActivity.this.finish();
+                                        }
+                                    }).create().show();
+                        }
                     } else {
                         new CountDownTimer(300, 100) { // 5000 = 5 sec
 
@@ -174,9 +186,6 @@ public class GameActivity extends AppCompatActivity {
                 break;
 
         }
-
-
-
     }
 
     public static int[] RandomizeArray(int[] array){
@@ -209,6 +218,7 @@ public class GameActivity extends AppCompatActivity {
             llayout5.setVisibility(View.GONE);
             llayout4.setVisibility(View.GONE);
             int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
+            Pares_Necessarios=6;
             Posicoes_rand=RandomizeArray(Posicoes);
 
 
@@ -217,10 +227,12 @@ public class GameActivity extends AppCompatActivity {
         else if(UsernameActivity.hardness.equals("medium")){
             llayout5.setVisibility(View.GONE);
             int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
+            Pares_Necessarios=8;
             Posicoes_rand=RandomizeArray(Posicoes);
         }
         else if(UsernameActivity.hardness.equals("hard")){
             int[] Posicoes= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
+            Pares_Necessarios=10;
             Posicoes_rand=RandomizeArray(Posicoes);
 
         }
