@@ -3,7 +3,10 @@ package com.example.memorygame;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -27,8 +30,14 @@ public class GameActivity extends AppCompatActivity {
     ImageView CartaAnterior = null;
     int espera=0;
     CountDownTimer cTimer = null; //Declare timer
+    int wrongPairs_1 = 0; //Wrong pairs for player 1
+    int wrongPairs_2 = 0; //Wrong pairs for player 2
+    int correctPairs_1 = 0; //Correct pairs for player 1
+    int correctPairs_2 = 0; //Correct pairs for player 2
+    int player = 1; //Active player
     int Carta;
     ImageView Imagem;
+
     public void Compara_cartas(final int Carta, final ImageView Imagem) {
         if(espera==0) {
             if (!Cards_Paired.contains(Carta)) {
@@ -42,6 +51,12 @@ public class GameActivity extends AppCompatActivity {
                         Cards_Paired.add(Carta);
                         Imagem.setEnabled(false);
                         CartaAnterior.setEnabled(false);
+                        if (player == 1) {
+                            correctPairs_1 += 1;
+                        }
+                        else if (player == 2) {
+                            correctPairs_2 += 1;
+                        }
                     } else {
                         new CountDownTimer(300, 100) { // 5000 = 5 sec
 
@@ -58,6 +73,12 @@ public class GameActivity extends AppCompatActivity {
                                     CartaAnterior.setImageResource(R.drawable.carta_back);
                                 }
                                 espera = 0;
+                                if (player == 1) {
+                                    wrongPairs_1 += 1;
+                                }
+                                else if (player == 2) {
+                                    wrongPairs_2 += 1;
+                                }
                             }
                         }.start();
 
@@ -70,6 +91,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     final int[] cars={R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda, R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota, R.drawable.volkswagen, R.drawable.subaru};
+
     public void onClick(View view){
         switch (view.getId()){
             case R.id.cardView1:
@@ -251,23 +273,83 @@ public class GameActivity extends AppCompatActivity {
 
     //start timer function
     void startTimer() {
-        cTimer = new CountDownTimer(500000, 1000) {
+        cTimer = new CountDownTimer(60000, 1000) {
             public void onTick(long millisUntilFinished) {
                 TextView timer = findViewById(R.id.textTimer);
                 timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
             }
             public void onFinish() {
+                TextView timer = findViewById(R.id.textTimer);
+                timer.setText("0");
                 new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
-                        .setTitle("Time over!")
-                        .setMessage("Better luck next time!")
-                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                GameActivity.this.finish();
-                            }
-                        }).create().show();
+                    .setTitle("Time over!")
+                    .setMessage("Better luck next time!")
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            GameActivity.this.finish();
+                        }
+                    }).create().show();
             }
         };
         cTimer.start();
     }
+
+    //save scores function
+    private void saveScore(String userName, int score) {
+
+        SharedPreferences scores = getSharedPreferences(UsernameActivity.hardness, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorScores = scores.edit();
+
+        int scorePos = 0; //score a ser analizado
+        String namePos = "";
+
+        for (int i = 1; i<11;i++){
+            namePos = scores.getString(String.valueOf(i), null);
+            scorePos = Integer.parseInt(namePos.substring(namePos.indexOf(",")+1));
+            namePos = namePos.substring(0,namePos.indexOf(",")-1);
+            if (userName.equals(namePos)){
+                if (scorePos < score){
+                    editorScores.putString(String.valueOf(i), namePos + "," + score);
+                }
+                score = 0;
+                i=11;
+            }
+        }
+        if (score>0) {
+            for (int i = 1; i < 11; i++) {
+                namePos = scores.getString(String.valueOf(i), null);
+                if (namePos == null) {
+                    editorScores.putString(String.valueOf(i), namePos + "," + score);
+                    editorScores.apply();
+                    i = 11;
+                } else {
+                    scorePos = Integer.parseInt(namePos.substring(namePos.indexOf(",")+1));
+                    if (scorePos < score) {
+                        if (i == 10) {
+                            editorScores.putString(String.valueOf(i), namePos + "," + score);
+                        } else {
+                            for (int j = 9; i < j + 1; j--) {
+                                scorePos = Integer.parseInt(namePos.substring(namePos.indexOf(",")+1));
+                                if (scorePos != 10) {
+                                    editorScores.putString(String.valueOf(j+1), namePos + "," + score);
+                                }
+                            }
+                            editorScores.putString(String.valueOf(i), namePos + "," + score);
+                        }
+                        i = 11;
+                    }
+                }
+            }
+        }
+        editorScores.apply();
+    }
+
+    //calculate scores function
+    private int calculateScore(int wrong, int correct){
+        int calculatedScore = (int)Math.ceil((correct/wrong)*10000);
+        return calculatedScore;
+    }
 }
+
+
