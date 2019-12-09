@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class UsernameActivity extends AppCompatActivity {
 
     static String hardness;
+    static String theme;
     static boolean singlePlayer;
     RadioButton radioBtn1;
     RadioButton radioBtn2;
@@ -92,16 +93,19 @@ public class UsernameActivity extends AppCompatActivity {
                         switch(which){
                             case 0:
                                 hardness = "easy";
+                                radioBtnCheck();
                                 startGameActivity();
                                 UsernameActivity.this.finish();
                                 break;
                             case 1:
                                 hardness = "medium";
+                                radioBtnCheck();
                                 startGameActivity();
                                 UsernameActivity.this.finish();
                                 break;
                             case 2:
                                 hardness = "hard";
+                                radioBtnCheck();
                                 startGameActivity();
                                 UsernameActivity.this.finish();
                                 break;
@@ -140,5 +144,17 @@ public class UsernameActivity extends AppCompatActivity {
         nome = t.getText().toString();
 
         _userName.setText(nome);
+    }
+
+    private void radioBtnCheck() {
+        if (radioBtn1.isChecked()){
+            theme = radioBtn1.getTag().toString();
+        }
+        else if (radioBtn2.isChecked()){
+            theme = radioBtn2.getTag().toString();
+        }
+        else if (radioBtn3.isChecked()){
+            theme = radioBtn3.getTag().toString();
+        }
     }
 }

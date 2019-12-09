@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
+    String choosenTheme = UsernameActivity.theme;
+    boolean isSinglePlayer = UsernameActivity.singlePlayer;
     int[] Posicoes_rand;
     int Pares=0;
     int carta1=100;
