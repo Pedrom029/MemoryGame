@@ -29,6 +29,61 @@ public class GameActivity extends AppCompatActivity {
     int card;
     ImageView image;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+
+        LinearLayout llayout5 = findViewById(R.id.lineView5);
+        LinearLayout llayout4 = findViewById(R.id.lineView4);
+
+        final LinearLayout Linear_l=findViewById(R.id.linearLayout);
+        //img_1.setImageResource(cars[0]);
+
+
+        if(UsernameActivity.hardness.equals("easy")){
+            llayout5.setVisibility(View.GONE);
+            llayout4.setVisibility(View.GONE);
+            int [] positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
+            pairsNeeded =6;
+            inicializeGame(positions);
+        }
+        else if(UsernameActivity.hardness.equals("medium")){
+            llayout5.setVisibility(View.GONE);
+            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
+            pairsNeeded =8;
+            inicializeGame(positions);
+        }
+        else if(UsernameActivity.hardness.equals("hard")){
+            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
+            pairsNeeded =10;
+            inicializeGame(positions);
+        }
+
+        startTimer(); //Start timer
+    }
+
+    @Override
+    public void onBackPressed(){
+        new AlertDialog.Builder(this)
+                .setTitle("Chickening out already?")
+                .setMessage("Press Stay if you are brave.\nPress Exit to cower in shame.")
+                .setNegativeButton("Stay", null)
+                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GameActivity.this.finish();
+                    }
+                }).create().show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (cTimer != null)
+            cTimer.cancel();
+    }
+
     public void inicializeGame(int[] positions){
         randomPos = randomizeArray(positions);
         //Os id de todas as image views
@@ -49,58 +104,55 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }.start();
-
     }
 
     public void compareCards(final int card, final ImageView image) {
-        if(wait ==0) {
-            if (!cardsPaired.contains(card)) {
-                if (card1 == 100) {
-                    card1 = card;
-                    lastCard = image;
+        if(wait ==0 && !cardsPaired.contains(card)) {
+            //if (!cardsPaired.contains(card)) {
+            if (card1 == 100) {
+                card1 = card;
+                lastCard = image;
+                image.setImageResource(cars[card]);
+            } else {
+                if ((card1 == card) && (lastCard != image)) {
                     image.setImageResource(cars[card]);
-                } else {
-                    if ((card1 == card) && (lastCard != image)) {
-                        image.setImageResource(cars[card]);
-                        cardsPaired.add(card);
-                        image.setEnabled(false);
-                        lastCard.setEnabled(false);
-                        pairs = pairs +1;
-                        if (pairsNeeded == pairs){
-                            new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
-                                    .setTitle("Congratulations!! :D")
-                                    .setMessage("You have completed the game!!")
-                                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            GameActivity.this.finish();
-                                        }
-                                    }).create().show();
-                        }
-                    } else {
-                        new CountDownTimer(300, 100) { // 5000 = 5 sec
-
-                            public void onTick(long millisUntilFinished) {
-                                image.setImageResource(cars[card]);
-                                wait = 1;
-                            }
-
-                            public void onFinish() {
-                                if (!cardsPaired.contains(card)) {
-                                    image.setImageResource(R.drawable.carta_back);
-                                }
-                                if (!cardsPaired.contains(card1)) {
-                                    lastCard.setImageResource(R.drawable.carta_back);
-                                }
-                                wait = 0;
-                            }
-                        }.start();
-
+                    cardsPaired.add(card);
+                    image.setEnabled(false);
+                    lastCard.setEnabled(false);
+                    pairs = pairs +1;
+                    if (pairsNeeded == pairs){
+                        new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
+                                .setTitle("Congratulations!! :D")
+                                .setMessage("You have completed the game!!")
+                                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        GameActivity.this.finish();
+                                    }
+                                }).create().show();
                     }
-                    card1 = 100;
-                }
+                } else {
+                    new CountDownTimer(300, 100) { // 5000 = 5 sec
 
+                        public void onTick(long millisUntilFinished) {
+                            image.setImageResource(cars[card]);
+                            wait = 1;
+                        }
+
+                        public void onFinish() {
+                            if (!cardsPaired.contains(card)) {
+                                image.setImageResource(R.drawable.carta_back);
+                            }
+                            if (!cardsPaired.contains(card1)) {
+                                lastCard.setImageResource(R.drawable.carta_back);
+                            }
+                            wait = 0;
+                        }
+                    }.start();
+                }
+                card1 = 100;
             }
+            //}
         }
     }
 
@@ -222,62 +274,6 @@ public class GameActivity extends AppCompatActivity {
         }
 
         return array;
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-
-        LinearLayout llayout5 = findViewById(R.id.lineView5);
-        LinearLayout llayout4 = findViewById(R.id.lineView4);
-
-        final LinearLayout Linear_l=findViewById(R.id.linearLayout);
-        //img_1.setImageResource(cars[0]);
-
-
-        if(UsernameActivity.hardness.equals("easy")){
-            llayout5.setVisibility(View.GONE);
-            llayout4.setVisibility(View.GONE);
-            int [] positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
-            pairsNeeded =6;
-            inicializeGame(positions);
-        }
-        else if(UsernameActivity.hardness.equals("medium")){
-            llayout5.setVisibility(View.GONE);
-            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
-            pairsNeeded =8;
-            inicializeGame(positions);
-        }
-        else if(UsernameActivity.hardness.equals("hard")){
-            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
-            pairsNeeded =10;
-            inicializeGame(positions);
-        }
-
-       startTimer(); //Start timer
-    }
-
-    @Override
-    public void onBackPressed(){
-        new AlertDialog.Builder(this)
-                .setTitle("Chickening out already?")
-                .setMessage("Press Stay if you are brave.\nPress Exit to cower in shame.")
-                .setNegativeButton("Stay", null)
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        GameActivity.this.finish();
-                    }
-                }).create().show();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (cTimer != null)
-            cTimer.cancel();
     }
 
     //start timer function
