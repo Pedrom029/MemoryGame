@@ -28,6 +28,9 @@ public class GameActivity extends AppCompatActivity {
     CountDownTimer cTimer = null; //Declare timer
     int card;
     ImageView image;
+    int [] positions;
+    int Player=0;
+    int [] Points=new int[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +47,20 @@ public class GameActivity extends AppCompatActivity {
         if(UsernameActivity.hardness.equals("easy")){
             llayout5.setVisibility(View.GONE);
             llayout4.setVisibility(View.GONE);
-            int [] positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
+            positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
             pairsNeeded =6;
-            inicializeGame(positions);
+            initializeGame(positions);
         }
         else if(UsernameActivity.hardness.equals("medium")){
             llayout5.setVisibility(View.GONE);
-            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
+            positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
             pairsNeeded =8;
-            inicializeGame(positions);
+            initializeGame(positions);
         }
         else if(UsernameActivity.hardness.equals("hard")){
-            int[] positions= new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
+            positions = new int[] {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
             pairsNeeded =10;
-            inicializeGame(positions);
+            initializeGame(positions);
         }
 
         startTimer(); //Start timer
@@ -84,11 +87,18 @@ public class GameActivity extends AppCompatActivity {
             cTimer.cancel();
     }
 
-    public void inicializeGame(int[] positions){
+    public void initializeGame(int[] positions){
+        cardsPaired.clear();
+        wait=0;
+        pairs=0;
+        card1=100;
+        lastCard=null;
         randomPos = randomizeArray(positions);
+        Points[0]=0;
+        Points[1]=0;
         //Os id de todas as image views
         final int[] imagens={R.id.cardView1,R.id.cardView2,R.id.cardView3,R.id.cardView4,R.id.cardView5,R.id.cardView6,R.id.cardView7,R.id.cardView8,R.id.cardView9,R.id.cardView10,R.id.cardView11,R.id.cardView12,R.id.cardView13,R.id.cardView14,R.id.cardView15,R.id.cardView16,R.id.cardView17,R.id.cardView18,R.id.cardView19,R.id.cardView20};
-        new CountDownTimer(1000, 100) { // 5000 = 5 sec
+        new CountDownTimer(1000, 100) {
 
             public void onTick(long millisUntilFinished) {
                 for(int i = 0; i< randomPos.length; i++) {
@@ -100,6 +110,7 @@ public class GameActivity extends AppCompatActivity {
             public void onFinish() {
                 for(int i = 0; i< randomPos.length; i++) {
                     image =findViewById(imagens[i]);
+                    image.setEnabled(true);
                     image.setImageResource(R.drawable.carta_back);
                 }
             }
@@ -120,16 +131,31 @@ public class GameActivity extends AppCompatActivity {
                     image.setEnabled(false);
                     lastCard.setEnabled(false);
                     pairs = pairs +1;
+                    Points[Player]=Points[Player]+1;
                     if (pairsNeeded == pairs){
-                        new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
-                                .setTitle("Congratulations!! :D")
-                                .setMessage("You have completed the game!!")
-                                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        GameActivity.this.finish();
-                                    }
-                                }).create().show();
+                        if(isSinglePlayer==true) {
+                            new AlertDialog.Builder(GameActivity.this)
+                                    .setTitle("Congratulations!! :D")
+                                    .setMessage("You have completed the game!!")
+                                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            GameActivity.this.finish();
+                                        }
+                                    }).create().show();
+                        }
+                        else{
+                            new AlertDialog.Builder(GameActivity.this)
+                                    .setTitle("Game over!!")
+                                    .setMessage("Player1="+String.valueOf(Points[0])+"\nPlayer2="+String.valueOf(Points[1]))
+                                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            GameActivity.this.finish();
+                                        }
+                                    }).create().show();
+
+                        }
                     }
                 } else {
                     new CountDownTimer(300, 100) { // 5000 = 5 sec
@@ -140,6 +166,12 @@ public class GameActivity extends AppCompatActivity {
                         }
 
                         public void onFinish() {
+                            if(Player==1){
+                                Player=0;
+                            }
+                            else{
+                                Player=1;
+                            }
                             if (!cardsPaired.contains(card)) {
                                 image.setImageResource(R.drawable.carta_back);
                             }
