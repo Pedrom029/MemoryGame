@@ -7,7 +7,9 @@
         android:id="@+id/textLayoutItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="36sp"
+        android:fontFamily="@font/changa_one"
+        android:textColor="@android:color/black"
+        android:textSize="34sp"
         android:text=""/>
 
 </LinearLayout>

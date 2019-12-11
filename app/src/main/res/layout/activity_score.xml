@@ -22,6 +22,83 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linearListViews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="10dp"
+        android:weightSum="3"
+        android:baselineAligned="false"
+        app:layout_constraintTop_toBottomOf="@id/titleView_m"
+        app:layout_constraintBottom_toTopOf="@id/adView_s"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ListView
+            android:id="@+id/listNames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <ListView
+            android:id="@+id/listScores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/adView_s"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearListViews">
+
+        <RadioButton
+            android:id="@+id/radioButtonEasy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/brainPink"
+            android:buttonTintMode="src_in"
+            android:fontFamily="@font/changa_one"
+            android:onClick="onRadioClick"
+            android:text="@string/radioButtonEasy"
+            android:textSize="22sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/brainPink"
+            android:buttonTintMode="src_in"
+            android:fontFamily="@font/changa_one"
+            android:onClick="onRadioClick"
+            android:text="@string/radioButtonMedium"
+            android:textSize="22sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonHard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/brainPink"
+            android:buttonTintMode="src_in"
+            android:fontFamily="@font/changa_one"
+            android:onClick="onRadioClick"
+            android:text="@string/radioButtonHard"
+            android:textSize="22sp" />
+
+    </RadioGroup>
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView_s"
         android:layout_width="wrap_content"

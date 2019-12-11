@@ -23,6 +23,9 @@
     <string name="radioBtn1_u">Car Brands</string>
     <string name="radioBtn2_u">Social Networks</string>
     <string name="radioBtn3_u">Electronic Symbols</string>
+    <string name="radioButtonEasy">easy</string>
+    <string name="radioButtonMedium">medium</string>
+    <string name="radioButtonHard">hard</string>
 
 
 </resources>
