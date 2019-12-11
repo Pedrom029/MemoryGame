@@ -356,7 +356,7 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences scores = getSharedPreferences(UsernameActivity.hardness, Context.MODE_PRIVATE);
         SharedPreferences.Editor editorScores = scores.edit();
 
-        int scorePos = 0; //score a ser analizado
+        int scorePos = 0; //score to be tested
         String namePos = "";
 
         for (int i = 1; i<11;i++){
@@ -391,9 +391,11 @@ public class GameActivity extends AppCompatActivity {
                         } else {
                             for (int j = 9; i < j + 1; j--) {
                                 namePos = scores.getString(String.valueOf(j),null);
-                                scorePos = Integer.parseInt(namePos.substring(namePos.indexOf(",")+1));
-                                namePos = namePos.substring(0, namePos.indexOf(","));
-                                editorScores.putString(String.valueOf(j+1), namePos + "," + scorePos);
+                                if (namePos != null){
+                                    scorePos = Integer.parseInt(namePos.substring(namePos.indexOf(",") + 1));
+                                    namePos = namePos.substring(0, namePos.indexOf(","));
+                                    editorScores.putString(String.valueOf(j + 1), namePos + "," + scorePos);
+                                }
                             }
                             editorScores.putString(String.valueOf(i), userName + "," + score);
                         }
