@@ -45,9 +45,14 @@ public class UsernameActivity extends AppCompatActivity {
             for (int j = 1; j < 11; j++){
                 SharedPreferences names = getSharedPreferences(hardness, Context.MODE_PRIVATE);
                 name = names.getString(String.valueOf(j),null);
-                if (name != null) listNames.add(name.substring(0, name.indexOf(",")));
-                else j=11;
-            }
+                if (name != null) {
+                    if ((listNames.indexOf(name.substring(0, name.indexOf(","))) == -1) || (listNames.size() == 0))
+                        listNames.add(name.substring(0, name.indexOf(",")));
+                }
+                else {
+                    j=11;
+                }
+                }
         }
         final ListView listViewNames = findViewById(R.id.listNames);
         SimpleAdapter simpleAdapter = new SimpleAdapter(this,listNames);
