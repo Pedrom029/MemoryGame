@@ -316,12 +316,14 @@ public class GameActivity extends AppCompatActivity {
 
     //start timer function
     void startTimer() {
-        cTimer = new CountDownTimer(500000, 1000) {
+        cTimer = new CountDownTimer(60000, 1000) {
             public void onTick(long millisUntilFinished) {
                 TextView timer = findViewById(R.id.textTimer);
                 timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
             }
             public void onFinish() {
+                TextView timer = findViewById(R.id.textTimer);
+                timer.setText("0");
                 new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
                         .setTitle("Time over!")
                         .setMessage("Better luck next time!")
@@ -338,9 +340,13 @@ public class GameActivity extends AppCompatActivity {
 
     //calculate scores function
     private int calculateScore(double wrong, int correct){
+        double hardnessFactor = 0;
+        if (UsernameActivity.hardness.equals("easy")) hardnessFactor = 10;
+        if (UsernameActivity.hardness.equals("medium")) hardnessFactor = 25;
+        if (UsernameActivity.hardness.equals("hard")) hardnessFactor = 50;
         if (wrong == 0) wrong = 0.5;
         TextView timeView = findViewById(R.id.textTimer);
-        Double calculatedScore = ((double)correct/wrong)* Double.parseDouble(timeView.getText().toString());
+        Double calculatedScore = ((double)correct/wrong)* (Double.parseDouble(timeView.getText().toString())+hardnessFactor);
         return (int) Math.ceil(calculatedScore);
     }
 
