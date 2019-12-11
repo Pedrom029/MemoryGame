@@ -75,108 +75,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="213dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCancel_m">
 
-        <LinearLayout
+
+        <ListView
+            android:id="@+id/listNames"
+            android:layout_height="213dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonCancel_m"
+            app:layout_constraintBottom_toTopOf="@+id/radioGroup"/>
 
-            <TextView
-                android:id="@+id/textName1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/textName2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/textName3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/textName4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/textName5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/textName6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/textName7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/changa_one"
-                android:onClick="userClick"
-                android:text=""
-                android:textSize="22sp" />
-
-        </LinearLayout>
-    </ScrollView>
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -189,7 +103,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+        app:layout_constraintTop_toBottomOf="@+id/listNames">
 
         <TextView
             android:layout_width="wrap_content"

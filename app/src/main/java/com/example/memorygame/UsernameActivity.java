@@ -9,10 +9,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsernameActivity extends AppCompatActivity {
 
@@ -27,44 +32,38 @@ public class UsernameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_username);
-        SharedPreferences names = getSharedPreferences("names", Context.MODE_PRIVATE);
         radioBtn1 = findViewById(R.id.radioButton1);
         radioBtn2 = findViewById(R.id.radioButton2);
         radioBtn3 = findViewById(R.id.radioButton3);
         radioBtn1.setChecked(true);
-        String name;
+        String name = "";
+        List<String> listNames = new ArrayList<>();
 
-        for (int i = 1 ; i < 11 ; i++) {
-            name = names.getString(String.valueOf(i), null);
-            if (i == 1){
-                TextView name1 = findViewById(R.id.textName1);
-                name1.setText(name);
-            }
-            if (i == 2){
-                TextView name2 = findViewById(R.id.textName2);
-                name2.setText(name);
-            }
-            else if (i == 3) {
-                TextView name3 = findViewById(R.id.textName3);
-                name3.setText(name);
-            }
-            else if (i == 4) {
-                TextView name4 = findViewById(R.id.textName4);
-                name4.setText(name);
-            }
-            else if (i == 5) {
-                TextView name5 = findViewById(R.id.textName5);
-                name5.setText(name);
-            }
-            else if (i == 6) {
-                TextView name6 = findViewById(R.id.textName6);
-                name6.setText(name);
-            }
-            else if (i == 7) {
-                TextView name7 = findViewById(R.id.textName7);
-                name7.setText(name);
+        for (int i = 1; i < 4; i++){
+            hardness = (i == 1 ? "easy" : i == 2 ? "medium" : "hard");
+
+            for (int j = 1; j < 11; j++){
+                SharedPreferences names = getSharedPreferences(hardness, Context.MODE_PRIVATE);
+                name = names.getString(String.valueOf(j),null);
+                if (name != null) listNames.add(name.substring(0, name.indexOf(",")));
+                else j=11;
             }
         }
+        final ListView listViewNames = findViewById(R.id.listNames);
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this,listNames);
+        listViewNames.setAdapter(simpleAdapter);
+
+        listViewNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (((AutoCompleteTextView) findViewById(R.id.userName)).getText().toString().equals("")) {
+                    ((AutoCompleteTextView) findViewById(R.id.userName)).setText(String.valueOf(listViewNames.getItemAtPosition(position)));
+                }
+                else if (((AutoCompleteTextView) findViewById(R.id.userName2)).getText().toString().equals("")){
+                    ((AutoCompleteTextView) findViewById(R.id.userName2)).setText(String.valueOf(listViewNames.getItemAtPosition(position)));
+                }
+            }
+        });
     }
 
     public void mainWindow(View view) {
@@ -136,15 +135,6 @@ public class UsernameActivity extends AppCompatActivity {
         }
     }
 
-    public void userClick(View view) {
-        String nome;
-        AutoCompleteTextView _userName = findViewById(R.id.userName);
-
-        TextView t = (TextView) view;
-        nome = t.getText().toString();
-
-        _userName.setText(nome);
-    }
 
     private void radioBtnCheck() {
         if (radioBtn1.isChecked()){
@@ -156,5 +146,9 @@ public class UsernameActivity extends AppCompatActivity {
         else if (radioBtn3.isChecked()){
             theme = radioBtn3.getTag().toString();
         }
+    }
+
+    public void onClickUserName(View view) {
+        //((AutoCompleteTextView) findViewById(R.id.userName)).setText(((TextView) view).getText().toString());
     }
 }
