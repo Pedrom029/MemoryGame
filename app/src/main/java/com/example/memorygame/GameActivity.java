@@ -141,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
                 R.id.cardView13,R.id.cardView14,R.id.cardView15,R.id.cardView16,R.id.cardView17,R.id.cardView18,
                 R.id.cardView19,R.id.cardView20};
 
-        new CountDownTimer(1000, 100) {
+        new CountDownTimer(2000, 100) {
 
             public void onTick(long millisUntilFinished) {
                 for(int i = 0; i< randomPos.length; i++) {
