@@ -34,6 +34,9 @@ public class GameActivity extends AppCompatActivity {
     int Player=0;
     int [] correctPairs = new int[2]; //pairs correct per player
     int [] wrongPairs = new int [2]; //pairs wrong per player
+    int[] theme={};
+    final int[] cars={R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda, R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota, R.drawable.volkswagen, R.drawable.subaru};
+    final int[] networks={R.drawable.facebook, R.drawable.googleplus, R.drawable.instagram, R.drawable.linkedin, R.drawable.pinterest, R.drawable.snapchat, R.drawable.twitter, R.drawable.whatsapp, R.drawable.youtube, R.drawable.vkontakte};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,12 @@ public class GameActivity extends AppCompatActivity {
 
         final LinearLayout Linear_l=findViewById(R.id.linearLayout);
         //img_1.setImageResource(cars[0]);
+        if("cars".equals(choosenTheme)){
+            theme=cars;
+        }
+        if("networks".equals(choosenTheme)){
+            theme=networks;
+        }
 
 
         if(UsernameActivity.hardness.equals("easy")){
@@ -112,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 for(int i = 0; i< randomPos.length; i++) {
                     image =findViewById(imagens[i]);
-                    image.setImageResource(cars[randomPos[i]]);
+                    image.setImageResource(theme[randomPos[i]]);
                 }
             }
 
@@ -124,6 +133,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }.start();
+
     }
 
     public void compareCards(final int card, final ImageView image) {
@@ -132,10 +142,10 @@ public class GameActivity extends AppCompatActivity {
             if (card1 == 100) {
                 card1 = card;
                 lastCard = image;
-                image.setImageResource(cars[card]);
+                image.setImageResource(theme[card]);
             } else {
                 if ((card1 == card) && (lastCard != image)) {
-                    image.setImageResource(cars[card]);
+                    image.setImageResource(theme[card]);
                     cardsPaired.add(card);
                     image.setEnabled(false);
                     lastCard.setEnabled(false);
@@ -166,7 +176,7 @@ public class GameActivity extends AppCompatActivity {
                     new CountDownTimer(300, 100) { // 5000 = 5 sec
 
                         public void onTick(long millisUntilFinished) {
-                            image.setImageResource(cars[card]);
+                            image.setImageResource(theme[card]);
                             wait = 1;
                         }
 
@@ -194,7 +204,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    final int[] cars={R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda, R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota, R.drawable.volkswagen, R.drawable.subaru};
+
     public void onClick(View view){
         switch (view.getId()){
             case R.id.cardView1:
