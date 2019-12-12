@@ -28,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
     ImageView lastCard = null;
     int wait =0;
     CountDownTimer cTimer = null; //Declare timer
+    CountDownTimer cTimer1 = null; //Declare timer Player 2
     int card;
     ImageView image;
     int [] positions;
@@ -358,6 +359,27 @@ public class GameActivity extends AppCompatActivity {
             }
         };
         cTimer.start();
+        if (!isSinglePlayer){
+            cTimer1 = new CountDownTimer(60000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    TextView timer = findViewById(R.id.textTimer1);
+                    timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
+                }
+                public void onFinish() {
+                    TextView timer = findViewById(R.id.textTimer1);
+                    timer.setText("0");
+                    new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
+                            .setTitle("Time over!")
+                            .setMessage("Better luck next time!")
+                            .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    GameActivity.this.finish();
+                                }
+                            }).create().show();
+                }
+            };
+        }
     }
 
     //calculate scores function
