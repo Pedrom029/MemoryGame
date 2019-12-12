@@ -94,6 +94,9 @@ public class GameActivity extends AppCompatActivity {
             cTimer.cancel();
     }
 
+    /**
+     * This function loads the images according to the theme selection of the player
+     */
     public void themeChoose(){
         if(choosenTheme.equals("cars")){
             final int[] cars = {R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda,
@@ -115,6 +118,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function sets the images on the cards and shows them for 1 second
+     * @param positions
+     */
     public void initializeGame(int[] positions){
         cardsPaired.clear();
         wait=0;
@@ -153,6 +160,11 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This function compares the cards to know if the combination is correct or wrong
+     * @param card
+     * @param image
+     */
     public void compareCards(final int card, final ImageView image) {
         if(wait ==0 && !cardsPaired.contains(card)) {
             if (card1 == 100) {
@@ -230,7 +242,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * This function shows he image behind the card when the player select it
+     * @param view
+     */
     public void onClick(View view){
         switch (view.getId()){
             case R.id.cardView1:
@@ -337,6 +352,13 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function randomizes the image array to be always different when playing
+     * @param array
+     * Image array
+     * @return
+     * returns the randomized array
+     */
     public static int[] randomizeArray(int[] array){
         Random rgen = new Random();  // Random number generator
 
@@ -350,7 +372,9 @@ public class GameActivity extends AppCompatActivity {
         return array;
     }
 
-    //start timer function
+    /**
+     * This function handles the countdown timer of the game
+     */
     void startTimer() {
         cTimer = new CountDownTimer(60000, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -395,7 +419,15 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    //calculate scores function
+    /**
+     * This function calculates the score of the player
+     * @param wrong
+     * Wrong combinations
+     * @param correct
+     * Correct combinations
+     * @return
+     * Returns the calculated score
+     */
     private int calculateScore(double wrong, int correct){
         double hardnessFactor = 0;
         if (UsernameActivity.hardness.equals("easy")) hardnessFactor = 10;
@@ -407,7 +439,13 @@ public class GameActivity extends AppCompatActivity {
         return (int) Math.ceil(calculatedScore);
     }
 
-    //save scores function
+    /**
+     * This function saves the score at the end of the game
+     * @param userName
+     * Player username
+     * @param score
+     * Player score
+     */
     private void saveScore(String userName, int score) {
 
         SharedPreferences scores = getSharedPreferences(UsernameActivity.hardness, Context.MODE_PRIVATE);

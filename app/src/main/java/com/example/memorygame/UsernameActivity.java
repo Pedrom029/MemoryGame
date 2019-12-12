@@ -81,6 +81,11 @@ public class UsernameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * This functions checks the usernames introduced and shows a pop-up with a difficulty selector
+     * Also starts the game when the player selects the difficulty
+     * @param view
+     */
     public void onClickGame(View view) {
         AutoCompleteTextView player1 = findViewById(R.id.userName);
         AutoCompleteTextView player2 = findViewById(R.id.userName2);
@@ -140,7 +145,9 @@ public class UsernameActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * This function is used when the player selects the game theme on radio buttons
+     */
     private void radioBtnCheck() {
         if (radioBtn1.isChecked()){
             theme = radioBtn1.getTag().toString();

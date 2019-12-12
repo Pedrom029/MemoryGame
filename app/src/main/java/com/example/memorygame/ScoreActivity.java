@@ -40,11 +40,19 @@ public class ScoreActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
     }
 
+    /**
+     * This function is used when the player selects which difficulty to show on scoreboard
+     * @param view
+     */
     public void onRadioClick(View view) {
         String hardness = ((RadioButton) view).getText().toString();
         createList(hardness);
     }
 
+    /**
+     * This function creates the score list to show on screen
+     * @param hardness
+     */
     public void createList(String hardness){
         List<String> listNames = new ArrayList<>();
         List<String> listScores = new ArrayList<>();
