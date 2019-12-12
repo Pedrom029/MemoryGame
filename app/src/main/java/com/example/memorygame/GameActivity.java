@@ -228,14 +228,15 @@ public class GameActivity extends AppCompatActivity {
                     Toast toast_1 = Toast.makeText(getApplicationContext(), "Player 1", Toast.LENGTH_SHORT);
                     toast_1.cancel();
                     toast_2.cancel();
-                    if(Player==1){
-                        Player=0;
-                        PlayerTurn.setText("Player 1");
-                    }
-                    else{
-                        Player=1;
-                        PlayerTurn.setText("Player 2");
-                        toast_2.show();
+                    if(isSinglePlayer==false) {
+                        if (Player == 1) {
+                            Player = 0;
+                            PlayerTurn.setText("Player 1");
+                        } else {
+                            Player = 1;
+                            PlayerTurn.setText("Player 2");
+                            toast_2.show();
+                        }
                     }
                 }
                 card1 = 100;
