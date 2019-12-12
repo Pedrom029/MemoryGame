@@ -29,7 +29,6 @@ public class GameActivity extends AppCompatActivity {
     ImageView lastCard = null;
     int wait =0;
     CountDownTimer cTimer = null; //Declare timer
-    CountDownTimer cTimer1 = null; //Declare timer Player 2
     int card;
     ImageView image;
     int [] positions;
