@@ -160,7 +160,4 @@ public class UsernameActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickUserName(View view) {
-        //((AutoCompleteTextView) findViewById(R.id.userName)).setText(((TextView) view).getText().toString());
-    }
 }

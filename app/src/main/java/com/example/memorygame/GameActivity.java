@@ -37,6 +37,8 @@ public class GameActivity extends AppCompatActivity {
     int [] correctPairs = new int[2]; //pairs correct per player
     int [] wrongPairs = new int [2]; //pairs wrong per player
     int[] theme={};
+    String millisLeft0 = "";
+    String millisLeft1 = "60";
 
 
     @Override
@@ -70,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
             initializeGame(positions);
         }
 
-        startTimer(); //Start timer
+        startTimer(60000); //Start timer
     }
 
     @Override
@@ -182,12 +184,14 @@ public class GameActivity extends AppCompatActivity {
                     if (pairsNeeded == pairs){
                         String dialogMessage = "";
                         if (cTimer != null) cTimer.cancel();
-                        int pointsPlayer0 = calculateScore((double)wrongPairs[0],correctPairs[0]);
+                        TextView timeView = findViewById(R.id.textTimer);
+                        if (isSinglePlayer) millisLeft0 = timeView.getText().toString();
+                        int pointsPlayer0 = calculateScore((double)wrongPairs[0],correctPairs[0],millisLeft0);
                         saveScore(MainActivity.m_userName1,pointsPlayer0);
                         dialogMessage = MainActivity.m_userName1 + ": " + pointsPlayer0 + " points";
                         if (!isSinglePlayer) {
-                            saveScore(MainActivity.m_userName2,calculateScore((double)wrongPairs[0],correctPairs[0]));
-                            int pointsPlayer1 = calculateScore((double)wrongPairs[1],correctPairs[1]);
+                            int pointsPlayer1 = calculateScore((double)wrongPairs[1],correctPairs[1],millisLeft1);
+                            saveScore(MainActivity.m_userName2,pointsPlayer1);
                             dialogMessage += "\n" + MainActivity.m_userName2 + ": " + pointsPlayer1 + " points";
                         }
 
@@ -202,6 +206,7 @@ public class GameActivity extends AppCompatActivity {
                                 }).create().show();
                     }
                 } else {
+
                     TextView PlayerTurn=findViewById(R.id.PlayerTurn);
 
                     new CountDownTimer(300, 100) { // 5000 = 5 sec
@@ -227,14 +232,22 @@ public class GameActivity extends AppCompatActivity {
                     Toast toast_1 = Toast.makeText(getApplicationContext(), "Player 1", Toast.LENGTH_SHORT);
                     toast_1.cancel();
                     toast_2.cancel();
-                    if(Player==1){
-                        Player=0;
-                        PlayerTurn.setText("Player 1");
-                    }
-                    else{
-                        Player=1;
-                        PlayerTurn.setText("Player 2");
-                        toast_2.show();
+                    if (!isSinglePlayer) {
+                        if (Player == 1 && !millisLeft0.equals("0")) {
+                            Player = 0;
+                            PlayerTurn.setText("Player 1");
+                            toast_1.show();
+                            millisLeft1 = ((TextView) findViewById(R.id.textTimer)).getText().toString();
+                            cTimer.cancel();
+                            startTimer(Long.parseLong(millisLeft0)*1000);
+                        } else if (Player == 0 && !millisLeft1.equals("0")) {
+                            Player = 1;
+                            PlayerTurn.setText("Player 2");
+                            toast_2.show();
+                            millisLeft0 = ((TextView) findViewById(R.id.textTimer)).getText().toString();
+                            cTimer.cancel();
+                            startTimer(Long.parseLong(millisLeft1)*1000);
+                        }
                     }
                 }
                 card1 = 100;
@@ -375,8 +388,8 @@ public class GameActivity extends AppCompatActivity {
     /**
      * This function handles the countdown timer of the game
      */
-    void startTimer() {
-        cTimer = new CountDownTimer(60000, 1000) {
+    void startTimer(long millis) {
+        cTimer = new CountDownTimer(millis, 1000) {
             public void onTick(long millisUntilFinished) {
                 TextView timer = findViewById(R.id.textTimer);
                 timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
@@ -390,33 +403,29 @@ public class GameActivity extends AppCompatActivity {
                         .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                GameActivity.this.finish();
+                                if (!isSinglePlayer) {
+                                    if (millisLeft0.equals("0") && millisLeft1.equals("0"))
+                                        GameActivity.this.finish();
+                                    else{
+                                        TextView PlayerTurn=findViewById(R.id.PlayerTurn);
+                                        if (Player == 0){
+                                            Player = 1;
+                                            PlayerTurn.setText("Player 2");
+                                            startTimer(Long.parseLong(millisLeft1)*1000);
+                                        }
+                                        else{
+                                            Player = 0;
+                                            PlayerTurn.setText("Player 1");
+                                            startTimer(Long.parseLong(millisLeft0)*1000);
+                                        }
+                                    }
+                                }
+                                else GameActivity.this.finish();
                             }
                         }).create().show();
             }
         };
         cTimer.start();
-        if (!isSinglePlayer){
-            cTimer1 = new CountDownTimer(60000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    TextView timer = findViewById(R.id.textTimer1);
-                    timer.setText(String.valueOf((int)(Math.ceil((millisUntilFinished/1000)+1)))); //Calculate time left in seconds and show on TextView
-                }
-                public void onFinish() {
-                    TextView timer = findViewById(R.id.textTimer1);
-                    timer.setText("0");
-                    new AlertDialog.Builder(GameActivity.this)  //AlertDialog to inform user that he lost due to time
-                            .setTitle("Time over!")
-                            .setMessage("Better luck next time!")
-                            .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    GameActivity.this.finish();
-                                }
-                            }).create().show();
-                }
-            };
-        }
     }
 
     /**
@@ -428,14 +437,13 @@ public class GameActivity extends AppCompatActivity {
      * @return
      * Returns the calculated score
      */
-    private int calculateScore(double wrong, int correct){
+    private int calculateScore(double wrong, int correct, String timeLeft){
         double hardnessFactor = 0;
         if (UsernameActivity.hardness.equals("easy")) hardnessFactor = 10;
         if (UsernameActivity.hardness.equals("medium")) hardnessFactor = 25;
         if (UsernameActivity.hardness.equals("hard")) hardnessFactor = 50;
         if (wrong == 0) wrong = 0.5;
-        TextView timeView = findViewById(R.id.textTimer);
-        Double calculatedScore = ((double)correct/wrong)* (Double.parseDouble(timeView.getText().toString())+hardnessFactor);
+        Double calculatedScore = ((double)correct/wrong)* (Double.parseDouble(timeLeft)+hardnessFactor);
         return (int) Math.ceil(calculatedScore);
     }
 
