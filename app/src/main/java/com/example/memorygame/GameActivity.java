@@ -121,6 +121,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * This function sets the images on the cards and shows them for 1 second
      * @param positions
+     * Its the variable that has the positions each image will take on the board
      */
     public void initializeGame(int[] positions){
         cardsPaired.clear();
@@ -243,7 +244,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * This function shows he image behind the card when the player select it
+     * This function detects which image was clicked (position and the image itself) and calls the function that will compare the card
      * @param view
      */
     public void onClick(View view){
