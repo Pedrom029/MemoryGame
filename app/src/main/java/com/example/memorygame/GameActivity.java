@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     int [] correctPairs = new int[2]; //pairs correct per player
     int [] wrongPairs = new int [2]; //pairs wrong per player
     int[] theme={};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +178,7 @@ public class GameActivity extends AppCompatActivity {
                             int pointsPlayer1 = calculateScore((double)wrongPairs[1],correctPairs[1]);
                             dialogMessage += "\n" + MainActivity.m_userName2 + ": " + pointsPlayer1 + " points";
                         }
+
                         new AlertDialog.Builder(GameActivity.this)
                                 .setTitle("Game finished!!")
                                 .setMessage(dialogMessage)
@@ -187,6 +190,8 @@ public class GameActivity extends AppCompatActivity {
                                 }).create().show();
                     }
                 } else {
+                    TextView PlayerTurn=findViewById(R.id.PlayerTurn);
+
                     new CountDownTimer(300, 100) { // 5000 = 5 sec
 
                         public void onTick(long millisUntilFinished) {
@@ -196,12 +201,7 @@ public class GameActivity extends AppCompatActivity {
 
                         public void onFinish() {
                             wrongPairs[Player] += 1;
-                            if(Player==1){
-                                Player=0;
-                            }
-                            else{
-                                Player=1;
-                            }
+
                             if (!cardsPaired.contains(card)) {
                                 image.setImageResource(R.drawable.carta_back);
                             }
@@ -211,6 +211,19 @@ public class GameActivity extends AppCompatActivity {
                             wait = 0;
                         }
                     }.start();
+                    Toast toast_2 = Toast.makeText(getApplicationContext(), "Player 2", Toast.LENGTH_SHORT);
+                    Toast toast_1 = Toast.makeText(getApplicationContext(), "Player 1", Toast.LENGTH_SHORT);
+                    toast_1.cancel();
+                    toast_2.cancel();
+                    if(Player==1){
+                        Player=0;
+                        PlayerTurn.setText("Player 1");
+                    }
+                    else{
+                        Player=1;
+                        PlayerTurn.setText("Player 2");
+                        toast_2.show();
+                    }
                 }
                 card1 = 100;
             }
