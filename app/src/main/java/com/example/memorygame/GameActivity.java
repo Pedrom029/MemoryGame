@@ -49,8 +49,6 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout llayout5 = findViewById(R.id.lineView5);
         LinearLayout llayout4 = findViewById(R.id.lineView4);
 
-        //final LinearLayout Linear_l=findViewById(R.id.linearLayout);
-        //img_1.setImageResource(cars[0]);
         themeChoose();
 
         if(UsernameActivity.hardness.equals("easy")){
