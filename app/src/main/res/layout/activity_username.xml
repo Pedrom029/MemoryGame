@@ -76,19 +76,16 @@
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
 
-
-        <ListView
-            android:id="@+id/listNames"
-            android:layout_height="213dp"
-            android:layout_width="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCancel_m"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup"/>
+    <ListView
+        android:id="@+id/listNames"
+        android:layout_width="match_parent"
+        android:layout_height="213dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCancel_m" />
 
 
 
@@ -135,7 +132,7 @@
             android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="@string/radioBtn2_u"
-            android:tag="networks"
+            android:tag="social"
             android:textSize="18sp" />
 
         <RadioButton
@@ -146,7 +143,7 @@
             android:buttonTintMode="src_in"
             android:fontFamily="@font/changa_one"
             android:text="@string/radioBtn3_u"
-            android:tag="electronics"
+            android:tag="games"
             android:textSize="18sp" />
 
     </RadioGroup>

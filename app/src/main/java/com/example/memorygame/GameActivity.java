@@ -35,8 +35,6 @@ public class GameActivity extends AppCompatActivity {
     int [] correctPairs = new int[2]; //pairs correct per player
     int [] wrongPairs = new int [2]; //pairs wrong per player
     int[] theme={};
-    final int[] cars={R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda, R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota, R.drawable.volkswagen, R.drawable.subaru};
-    final int[] networks={R.drawable.facebook, R.drawable.googleplus, R.drawable.instagram, R.drawable.linkedin, R.drawable.pinterest, R.drawable.snapchat, R.drawable.twitter, R.drawable.whatsapp, R.drawable.youtube, R.drawable.vkontakte};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +44,9 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout llayout5 = findViewById(R.id.lineView5);
         LinearLayout llayout4 = findViewById(R.id.lineView4);
 
-        final LinearLayout Linear_l=findViewById(R.id.linearLayout);
+        //final LinearLayout Linear_l=findViewById(R.id.linearLayout);
         //img_1.setImageResource(cars[0]);
-        if("cars".equals(choosenTheme)){
-            theme=cars;
-        }
-        if("networks".equals(choosenTheme)){
-            theme=networks;
-        }
-
+        themeChoose();
 
         if(UsernameActivity.hardness.equals("easy")){
             llayout5.setVisibility(View.GONE);
@@ -99,6 +91,27 @@ public class GameActivity extends AppCompatActivity {
             cTimer.cancel();
     }
 
+    public void themeChoose(){
+        if(choosenTheme.equals("cars")){
+            final int[] cars = {R.drawable.alfaromeo, R.drawable.bmw, R.drawable.ferrari, R.drawable.mazda,
+                    R.drawable.honda, R.drawable.mercedes, R.drawable.nissan, R.drawable.toyota,
+                    R.drawable.volkswagen, R.drawable.subaru};
+            theme = cars;
+        }
+        else if(choosenTheme.equals("social")){
+            final int[] networks = {R.drawable.facebook, R.drawable.googleplus, R.drawable.instagram,
+                    R.drawable.linkedin, R.drawable.pinterest, R.drawable.snapchat, R.drawable.twitter,
+                    R.drawable.whatsapp, R.drawable.youtube, R.drawable.vkontakte};
+            theme = networks;
+        }
+        else if(choosenTheme.equals("games")){
+            final int[] games = {R.drawable.fallout, R.drawable.mario, R.drawable.donkeykong,
+                    R.drawable.crashbandicoot, R.drawable.cuphead, R.drawable.megaman, R.drawable.pikachu,
+                    R.drawable.sonic, R.drawable.zelda, R.drawable.pacman};
+            theme = games;
+        }
+    }
+
     public void initializeGame(int[] positions){
         cardsPaired.clear();
         wait=0;
@@ -116,6 +129,7 @@ public class GameActivity extends AppCompatActivity {
                 R.id.cardView7,R.id.cardView8,R.id.cardView9,R.id.cardView10,R.id.cardView11,R.id.cardView12,
                 R.id.cardView13,R.id.cardView14,R.id.cardView15,R.id.cardView16,R.id.cardView17,R.id.cardView18,
                 R.id.cardView19,R.id.cardView20};
+
         new CountDownTimer(1000, 100) {
 
             public void onTick(long millisUntilFinished) {
@@ -138,7 +152,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void compareCards(final int card, final ImageView image) {
         if(wait ==0 && !cardsPaired.contains(card)) {
-            //if (!cardsPaired.contains(card)) {
             if (card1 == 100) {
                 card1 = card;
                 lastCard = image;
@@ -200,7 +213,6 @@ public class GameActivity extends AppCompatActivity {
                 }
                 card1 = 100;
             }
-            //}
         }
     }
 

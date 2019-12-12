@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:text="Game:\nPedro Martins\nGonçalo Pereira\nFernando Ferreira"
+        android:text="GAME:\nPedro Martins\nGonçalo Pereira\nFernando Ferreira"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2_a" />
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:text="Image:\nPedro Martins\nEmi Tulett (Brain Jar)"
+        android:text="COPYRIGHT NOTICE:\nAll images or brands appearing\nin this game are exclusive\nproperty of the respective owners\n"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3_a" />
